@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ExampleApp : MonoBehaviour
 {
@@ -14,23 +15,33 @@ public class ExampleApp : MonoBehaviour
     public Environment2DApiClient enviroment2DApiClient;
     public Object2DApiClient object2DApiClient;
 
+    [Header("UI Elements")]
+    public InputField emailInput;   
+    public InputField passwordInput;
+    public Text feedbackText;       
     #region Login
 
     [ContextMenu("User/Register")]
     public async void Register()
     {
+        // Wijs de waarden direct toe aan de bestaande variabelen
+        user.email = emailInput.text;    // E-mailadres
+        user.password = passwordInput.text; // Wachtwoord
+
         IWebRequestReponse webRequestResponse = await userApiClient.Register(user);
 
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
-                Debug.Log("Register succes!");
-                // TODO: Handle succes scenario;
+                feedbackText.text = "Register success!"; // Geef feedback
+                Debug.Log("Register success!");
+                // TODO: Handle success scenario. Bijvoorbeeld, navigeer naar een ander scherm.
                 break;
             case WebRequestError errorResponse:
                 string errorMessage = errorResponse.ErrorMessage;
+                feedbackText.text = "Register error: " + errorMessage; // Geef feedback
                 Debug.Log("Register error: " + errorMessage);
-                // TODO: Handle error scenario. Show the errormessage to the user.
+                // TODO: Handle error scenario. Toon de foutmelding aan de gebruiker.
                 break;
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
@@ -40,18 +51,22 @@ public class ExampleApp : MonoBehaviour
     [ContextMenu("User/Login")]
     public async void Login()
     {
+        // Wijs de waarden direct toe aan de bestaande variabelen
+        user.email = emailInput.text;    // Gebruikersnaam
+        user.password = passwordInput.text; // Wachtwoord
+
         IWebRequestReponse webRequestResponse = await userApiClient.Login(user);
 
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
+                feedbackText.text = "Login succes!"; // Geef feedback
                 Debug.Log("Login succes!");
-                // TODO: Todo handle succes scenario.
                 break;
             case WebRequestError errorResponse:
                 string errorMessage = errorResponse.ErrorMessage;
+                feedbackText.text = "Login error: " + errorMessage; // Geef feedback
                 Debug.Log("Login error: " + errorMessage);
-                // TODO: Handle error scenario. Show the errormessage to the user.
                 break;
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
