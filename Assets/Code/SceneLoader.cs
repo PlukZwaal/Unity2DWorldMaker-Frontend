@@ -6,7 +6,6 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadLoginScene()
     {
-        Debug.Log("LoadLoginScene");
         SceneManager.LoadScene("LoginScene");
     }
 

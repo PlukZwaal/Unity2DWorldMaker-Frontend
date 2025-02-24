@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ExampleApp : MonoBehaviour
@@ -18,55 +20,79 @@ public class ExampleApp : MonoBehaviour
     [Header("UI Elements")]
     public InputField emailInput;   
     public InputField passwordInput;
-    public Text feedbackText;       
+    public Text feedbackText;
     #region Login
 
     [ContextMenu("User/Register")]
     public async void Register()
     {
-        // Wijs de waarden direct toe aan de bestaande variabelen
-        user.email = emailInput.text;    // E-mailadres
-        user.password = passwordInput.text; // Wachtwoord
+        user.email = emailInput.text;
+        user.password = passwordInput.text;
+
+        if (!IsEmailValid(user.email))
+        {
+            feedbackText.text = "Ongeldig e-mailadres";
+            return;
+        }
+
+        string validationFeedback = GetPasswordValidationFeedback(user.password);
+        if (!string.IsNullOrEmpty(validationFeedback))
+        {
+            feedbackText.text = validationFeedback;
+            return;
+        }
 
         IWebRequestReponse webRequestResponse = await userApiClient.Register(user);
 
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
-                feedbackText.text = "Register success!"; // Geef feedback
-                Debug.Log("Register success!");
-                // TODO: Handle success scenario. Bijvoorbeeld, navigeer naar een ander scherm.
+                Login();
                 break;
             case WebRequestError errorResponse:
-                string errorMessage = errorResponse.ErrorMessage;
-                feedbackText.text = "Register error: " + errorMessage; // Geef feedback
-                Debug.Log("Register error: " + errorMessage);
-                // TODO: Handle error scenario. Toon de foutmelding aan de gebruiker.
+                feedbackText.text = "Er bestaat al een gebruiker met deze naam";
                 break;
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
         }
     }
 
+    private bool IsEmailValid(string email)
+    {
+        if (!email.Contains("@")) return false;
+
+        string[] parts = email.Split('@');
+        return parts.Length == 2 && parts[0].Length > 0 && parts[1].Length > 0;
+    }
+    private string GetPasswordValidationFeedback(string password)
+    {
+        var feedbackMessages = new List<string>();
+
+        if (password.Length < 10) feedbackMessages.Add("minimaal 10 karakters lang");
+        if (!Regex.IsMatch(password, "[a-z]")) feedbackMessages.Add("minstens 1 kleine letter");
+        if (!Regex.IsMatch(password, "[A-Z]")) feedbackMessages.Add("minstens 1 hoofdletter");
+        if (!Regex.IsMatch(password, "[0-9]")) feedbackMessages.Add("minstens 1 cijfer");
+        if (!Regex.IsMatch(password, "[^a-zA-Z0-9]")) feedbackMessages.Add("minstens 1 niet-alfanumeriek karakter");
+
+        return feedbackMessages.Count > 0 ? "Wachtwoord moet " + string.Join(", ", feedbackMessages) + " bevatten." : "";
+    }
+
     [ContextMenu("User/Login")]
     public async void Login()
     {
-        // Wijs de waarden direct toe aan de bestaande variabelen
-        user.email = emailInput.text;    // Gebruikersnaam
-        user.password = passwordInput.text; // Wachtwoord
+        user.email = emailInput.text;   
+        user.password = passwordInput.text; 
 
         IWebRequestReponse webRequestResponse = await userApiClient.Login(user);
 
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
-                feedbackText.text = "Login succes!"; // Geef feedback
-                Debug.Log("Login succes!");
+                SceneManager.LoadScene("EnvironmentsScene");
                 break;
             case WebRequestError errorResponse:
                 string errorMessage = errorResponse.ErrorMessage;
-                feedbackText.text = "Login error: " + errorMessage; // Geef feedback
-                Debug.Log("Login error: " + errorMessage);
+                feedbackText.text = "Geen acounnt gevonden met deze gegevens!";
                 break;
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
