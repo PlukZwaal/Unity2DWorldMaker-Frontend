@@ -1,9 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public GetEnvironments environmentUIHandler;
+
     public void LoadLoginScene()
     {
         SceneManager.LoadScene("LoginScene");
@@ -19,13 +22,17 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
-    public void LoadEnvironmentsScene()
+    public async void LoadEnvironmentsScene()
     {
-        SceneManager.LoadScene("EnvironmentsScene");
+        await SceneManager.LoadSceneAsync("EnvironmentsScene");
+        await Task.Yield();
+        environmentUIHandler = FindObjectOfType<GetEnvironments>();
+        environmentUIHandler.ReadEnvironment2Ds();
     }
 
-    public void LoadCreateEnvironmentScene()
+    public async void LoadCreateEnvironmentScene()
     {
-        SceneManager.LoadScene("CreateEnvironmentScene");
-    }
+        await SceneManager.LoadSceneAsync("CreateEnvironmentScene");
+        await Task.Yield();
+}
 }
