@@ -17,7 +17,7 @@ public class ExampleApp : MonoBehaviour
     public UserApiClient userApiClient;
     public Environment2DApiClient enviroment2DApiClient;
     public Object2DApiClient object2DApiClient;
-    public EnvironmentUIHandler environmentUIHandler; // Nieuwe dependency
+    public GetEnvironments environmentUIHandler; 
 
     [Header("UI Elements")]
     public InputField emailInput;
@@ -82,6 +82,7 @@ public class ExampleApp : MonoBehaviour
     }
 
     [ContextMenu("User/Login")]
+    [Obsolete]
     public async void Login()
     {
         user.email = emailInput.text;
@@ -92,14 +93,19 @@ public class ExampleApp : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
+                PlayerPrefs.SetString("Token", dataResponse.Data);
+                PlayerPrefs.Save(); 
+
                 await SceneManager.LoadSceneAsync("EnvironmentsScene");
-                await Task.Yield(); // Wacht tot UI klaar is
-                environmentUIHandler = FindObjectOfType<EnvironmentUIHandler>(); // Zoek de UI handler
-                ReadEnvironment2Ds();
+                await Task.Yield();
+                environmentUIHandler = FindObjectOfType<GetEnvironments>();
+                environmentUIHandler.ReadEnvironment2Ds();
                 break;
+
             case WebRequestError errorResponse:
                 feedbackText.text = "Geen account gevonden met deze gegevens!";
                 break;
+
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
         }
@@ -108,53 +114,6 @@ public class ExampleApp : MonoBehaviour
     #endregion
 
     #region Environment
-
-    [ContextMenu("Environment2D/Read all")]
-    public async void ReadEnvironment2Ds()
-    {
-        IWebRequestReponse webRequestResponse = await enviroment2DApiClient.ReadEnvironment2Ds();
-
-        switch (webRequestResponse)
-        {
-            case WebRequestData<List<Environment2D>> dataResponse:
-                environmentUIHandler.ClearList();
-                environmentUIHandler.PopulateList(dataResponse.Data);
-                environmentUIHandler.DebugLogEnvironments(dataResponse.Data);
-                break;
-            case WebRequestError errorResponse:
-                Debug.LogError($"Error: {errorResponse.ErrorMessage}");
-                break;
-            default:
-                throw new NotImplementedException("Geen implementatie voor: " + webRequestResponse.GetType());
-        }
-    }
-
-
-
-
-[ContextMenu("Environment2D/Create")]
-    public async void CreateEnvironment2D()
-    {
-        //environment2D.name = worldNameInput.text;
-        //environment2D.maxHeight = int.Parse(worldheightInput.text);
-        //environment2D.maxLength = int.Parse(worldlengthInput.text);
-        IWebRequestReponse webRequestResponse = await enviroment2DApiClient.CreateEnvironment(environment2D);
-
-        switch (webRequestResponse)
-        {
-            case WebRequestData<Environment2D> dataResponse:
-                environment2D.id = dataResponse.Data.id;
-                // TODO: Handle succes scenario.
-                break;
-            case WebRequestError errorResponse:
-                string errorMessage = errorResponse.ErrorMessage;
-                Debug.Log("Create environment2D error: " + errorMessage);
-                // TODO: Handle error scenario. Show the errormessage to the user.
-                break;
-            default:
-                throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
-        }
-    }
 
 
     [ContextMenu("Environment2D/Delete")]

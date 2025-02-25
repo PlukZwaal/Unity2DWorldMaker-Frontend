@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class Environment2DApiClient : MonoBehaviour
@@ -11,8 +12,15 @@ public class Environment2DApiClient : MonoBehaviour
     public async Task<IWebRequestReponse> ReadEnvironment2Ds()
     {
         string route = "/environments";
+        string token = PlayerPrefs.GetString("Token", "");
 
-        IWebRequestReponse webRequestResponse = await webClient.SendGetRequest(route);
+        Dictionary<string, string> headers = new Dictionary<string, string>
+        {
+            { "Authorization", "Bearer " + token },
+            { "Content-Type", "application/json" }
+        };
+
+        IWebRequestReponse webRequestResponse = await webClient.SendGetRequest(route, headers);
         return ParseEnvironment2DListResponse(webRequestResponse);
     }
 
@@ -20,8 +28,15 @@ public class Environment2DApiClient : MonoBehaviour
     {
         string route = "/environments";
         string data = JsonUtility.ToJson(environment);
+        string token = PlayerPrefs.GetString("Token", "");
 
-        IWebRequestReponse webRequestResponse = await webClient.SendPostRequest(route, data);
+        Dictionary<string, string> headers = new Dictionary<string, string>
+        {
+            { "Authorization", "Bearer " + token },
+            { "Content-Type", "application/json" }
+        };
+
+        IWebRequestReponse webRequestResponse = await webClient.SendPostRequest(route, data, headers);
         return ParseEnvironment2DResponse(webRequestResponse);
     }
 
@@ -36,7 +51,6 @@ public class Environment2DApiClient : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<string> data:
-                Debug.Log("Response data raw: " + data.Data);
                 Environment2D environment = JsonUtility.FromJson<Environment2D>(data.Data);
                 WebRequestData<Environment2D> parsedWebRequestData = new WebRequestData<Environment2D>(environment);
                 return parsedWebRequestData;
@@ -58,6 +72,5 @@ public class Environment2DApiClient : MonoBehaviour
                 return webRequestResponse;
         }
     }
-
 }
 

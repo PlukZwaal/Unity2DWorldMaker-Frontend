@@ -30,12 +30,28 @@ public class UserApiClient : MonoBehaviour
         {
             case WebRequestData<string> data:
                 Debug.Log("Response data raw: " + data.Data);
-                string token = JsonHelper.ExtractToken(data.Data);
-                webClient.SetToken(token);
-                return new WebRequestData<string>("Succes");
+
+                var json = JsonUtility.FromJson<TokenResponse>(data.Data);
+                if (!string.IsNullOrEmpty(json.accessToken))
+                {
+                    webClient.SetToken(json.accessToken);
+                    return new WebRequestData<string>(json.accessToken);
+                }
+                else
+                {
+                    return new WebRequestData<string>("Fout: Geen geldige token");
+                }
             default:
                 return webRequestResponse;
         }
+    }
+
+    public class TokenResponse
+    {
+        public string accessToken;
+        public string tokenType;
+        public int expiresIn;
+        public string refreshToken;
     }
 
 }

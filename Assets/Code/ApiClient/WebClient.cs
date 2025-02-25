@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,6 +15,20 @@ public class WebClient : MonoBehaviour
         this.token = token;
     }
 
+
+    public async Awaitable<IWebRequestReponse> SendGetRequest(string route, Dictionary<string, string> headers)
+    {
+        UnityWebRequest webRequest = CreateWebRequest("GET", route, "");
+
+        foreach (var header in headers)
+        {
+            webRequest.SetRequestHeader(header.Key, header.Value);
+        }
+
+        return await SendWebRequest(webRequest);
+    }
+
+
     public async Awaitable<IWebRequestReponse> SendGetRequest(string route)
     {
         UnityWebRequest webRequest = CreateWebRequest("GET", route, "");
@@ -23,6 +38,18 @@ public class WebClient : MonoBehaviour
     public async Awaitable<IWebRequestReponse> SendPostRequest(string route, string data)
     {
         UnityWebRequest webRequest = CreateWebRequest("POST", route, data);
+        return await SendWebRequest(webRequest);
+    }
+
+    public async Awaitable<IWebRequestReponse> SendPostRequest(string route, string data, Dictionary<string, string> headers)
+    {
+        UnityWebRequest webRequest = CreateWebRequest("POST", route, data);
+
+        foreach (var header in headers)
+        {
+            webRequest.SetRequestHeader(header.Key, header.Value);
+        }
+
         return await SendWebRequest(webRequest);
     }
 
