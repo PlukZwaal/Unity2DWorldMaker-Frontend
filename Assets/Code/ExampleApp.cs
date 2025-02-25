@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,11 +17,13 @@ public class ExampleApp : MonoBehaviour
     public UserApiClient userApiClient;
     public Environment2DApiClient enviroment2DApiClient;
     public Object2DApiClient object2DApiClient;
+    public EnvironmentUIHandler environmentUIHandler; // Nieuwe dependency
 
     [Header("UI Elements")]
-    public InputField emailInput;   
+    public InputField emailInput;
     public InputField passwordInput;
     public Text feedbackText;
+
     #region Login
 
     [ContextMenu("User/Register")]
@@ -64,6 +67,7 @@ public class ExampleApp : MonoBehaviour
         string[] parts = email.Split('@');
         return parts.Length == 2 && parts[0].Length > 0 && parts[1].Length > 0;
     }
+
     private string GetPasswordValidationFeedback(string password)
     {
         var feedbackMessages = new List<string>();
@@ -80,19 +84,21 @@ public class ExampleApp : MonoBehaviour
     [ContextMenu("User/Login")]
     public async void Login()
     {
-        user.email = emailInput.text;   
-        user.password = passwordInput.text; 
+        user.email = emailInput.text;
+        user.password = passwordInput.text;
 
         IWebRequestReponse webRequestResponse = await userApiClient.Login(user);
 
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
-                SceneManager.LoadScene("EnvironmentsScene");
+                await SceneManager.LoadSceneAsync("EnvironmentsScene");
+                await Task.Yield(); // Wacht tot UI klaar is
+                environmentUIHandler = FindObjectOfType<EnvironmentUIHandler>(); // Zoek de UI handler
+                ReadEnvironment2Ds();
                 break;
             case WebRequestError errorResponse:
-                string errorMessage = errorResponse.ErrorMessage;
-                feedbackText.text = "Geen acounnt gevonden met deze gegevens!";
+                feedbackText.text = "Geen account gevonden met deze gegevens!";
                 break;
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
@@ -111,24 +117,27 @@ public class ExampleApp : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<List<Environment2D>> dataResponse:
-                List<Environment2D> environment2Ds = dataResponse.Data;
-                Debug.Log("List of environment2Ds: ");
-                environment2Ds.ForEach(environment2D => Debug.Log(environment2D.id));
-                // TODO: Handle succes scenario.
+                environmentUIHandler.ClearList();
+                environmentUIHandler.PopulateList(dataResponse.Data);
+                environmentUIHandler.DebugLogEnvironments(dataResponse.Data);
                 break;
             case WebRequestError errorResponse:
-                string errorMessage = errorResponse.ErrorMessage;
-                Debug.Log("Read environment2Ds error: " + errorMessage);
-                // TODO: Handle error scenario. Show the errormessage to the user.
+                Debug.LogError($"Error: {errorResponse.ErrorMessage}");
                 break;
             default:
-                throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
+                throw new NotImplementedException("Geen implementatie voor: " + webRequestResponse.GetType());
         }
     }
 
-    [ContextMenu("Environment2D/Create")]
+
+
+
+[ContextMenu("Environment2D/Create")]
     public async void CreateEnvironment2D()
     {
+        //environment2D.name = worldNameInput.text;
+        //environment2D.maxHeight = int.Parse(worldheightInput.text);
+        //environment2D.maxLength = int.Parse(worldlengthInput.text);
         IWebRequestReponse webRequestResponse = await enviroment2DApiClient.CreateEnvironment(environment2D);
 
         switch (webRequestResponse)
@@ -146,6 +155,7 @@ public class ExampleApp : MonoBehaviour
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
         }
     }
+
 
     [ContextMenu("Environment2D/Delete")]
     public async void DeleteEnvironment2D()

@@ -18,4 +18,14 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+
+    public void LoadEnvironmentsScene()
+    {
+        SceneManager.LoadScene("EnvironmentsScene");
+    }
+
+    public void LoadCreateEnvironmentScene()
+    {
+        SceneManager.LoadScene("CreateEnvironmentScene");
+    }
 }

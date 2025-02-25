@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Environment2DApiClient : MonoBehaviour
 {
     public WebClient webClient;
 
-    public async Awaitable<IWebRequestReponse> ReadEnvironment2Ds() 
+    public async Task<IWebRequestReponse> ReadEnvironment2Ds()
     {
         string route = "/environments";
 

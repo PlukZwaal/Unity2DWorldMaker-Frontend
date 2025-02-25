@@ -943,7 +943,7 @@ GameObject:
   - component: {fileID: 1149968645}
   - component: {fileID: 1149968644}
   m_Layer: 5
-  m_Name: FeedbackTest
+  m_Name: FeedbackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1558,6 +1558,7 @@ MonoBehaviour:
   userApiClient: {fileID: 579578320}
   enviroment2DApiClient: {fileID: 579578317}
   object2DApiClient: {fileID: 579578319}
+  environmentHandler: {fileID: 0}
   emailInput: {fileID: 1865282710}
   passwordInput: {fileID: 1497173170}
   feedbackText: {fileID: 1149968644}
