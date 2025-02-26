@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public GetEnvironments environmentUIHandler;
+    public GetEnvironments getEnvironments;
+    public GetObjects getObjects;
 
     public void LoadLoginScene()
     {
@@ -26,13 +27,13 @@ public class SceneLoader : MonoBehaviour
     {
         await SceneManager.LoadSceneAsync("EnvironmentsScene");
         await Task.Yield();
-        environmentUIHandler = FindObjectOfType<GetEnvironments>();
-        environmentUIHandler.ReadEnvironment2Ds();
+        getEnvironments = FindObjectOfType<GetEnvironments>();
+        getEnvironments.ReadEnvironment2Ds();
     }
 
     public async void LoadCreateEnvironmentScene()
     {
         await SceneManager.LoadSceneAsync("CreateEnvironmentScene");
         await Task.Yield();
-}
+    }
 }

@@ -4,14 +4,19 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class GetEnvironments : MonoBehaviour
 {
     [SerializeField] public Transform contentParent;
     [SerializeField] public GameObject listItemPrefab;
     public Environment2DApiClient enviroment2DApiClient;
+
+    public GetObjects getObjects;
     public Environment2D environment2D;
     public DeleteEnvironment deleteEnvironment;
+
 
     public async void ReadEnvironment2Ds()
     {
@@ -54,7 +59,7 @@ public class GetEnvironments : MonoBehaviour
                 {
                     button.onClick.RemoveAllListeners();
                     button.onClick.AddListener(() =>
-                        Debug.Log($"Bezoeken: {environment.name}")
+                       SeeEnvironment(environment.id)
                     );
                 }
             }
@@ -75,6 +80,16 @@ public class GetEnvironments : MonoBehaviour
         }
     }
 
+    public async void SeeEnvironment(string id)
+    {
+        PlayerPrefs.SetString("CurrentEnvironmentId", id);
+        PlayerPrefs.Save();
+        await SceneManager.LoadSceneAsync("SeeEnvironmentScene");
+        await Task.Yield();
+        getObjects = FindObjectOfType<GetObjects>();
+        getObjects.ReadObject2Ds(id);
+    }
+    
     public void ClearList()
     {
         for (int i = contentParent.childCount - 1; i >= 0; i--)

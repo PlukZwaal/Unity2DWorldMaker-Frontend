@@ -10,17 +10,31 @@ public class Object2DApiClient : MonoBehaviour
     public async Awaitable<IWebRequestReponse> ReadObject2Ds(string environmentId)
     {
         string route = "/environments/" + environmentId + "/objects";
+        string token = PlayerPrefs.GetString("Token", "");
 
-        IWebRequestReponse webRequestResponse = await webClient.SendGetRequest(route);
+        Dictionary<string, string> headers = new Dictionary<string, string>
+    {
+        { "Authorization", "Bearer " + token },
+        { "Content-Type", "application/json" }
+    };
+
+        IWebRequestReponse webRequestResponse = await webClient.SendGetRequest(route, headers);
         return ParseObject2DListResponse(webRequestResponse);
     }
 
     public async Awaitable<IWebRequestReponse> CreateObject2D(Object2D object2D)
     {
-        string route = "/environments/" + object2D.environmentId + "/objects";
+        string route = "/environments/" + PlayerPrefs.GetString("CurrentEnvironmentId") + "/objects";
         string data = JsonUtility.ToJson(object2D);
+        string token = PlayerPrefs.GetString("Token", "");
 
-        IWebRequestReponse webRequestResponse = await webClient.SendPostRequest(route, data);
+        Dictionary<string, string> headers = new Dictionary<string, string>
+    {
+        { "Authorization", "Bearer " + token },
+        { "Content-Type", "application/json" }
+    };
+
+        IWebRequestReponse webRequestResponse = await webClient.SendPostRequest(route, data, headers);
         return ParseObject2DResponse(webRequestResponse);
     }
 

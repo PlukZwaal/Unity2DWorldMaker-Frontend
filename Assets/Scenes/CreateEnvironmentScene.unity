@@ -1182,6 +1182,7 @@ GameObject:
   - component: {fileID: 1191053831}
   - component: {fileID: 1191053830}
   - component: {fileID: 1191053832}
+  - component: {fileID: 1191053833}
   m_Layer: 0
   m_Name: CreateEnvironment
   m_TagString: Untagged
@@ -1202,6 +1203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enviroment2DApiClient: {fileID: 579578317}
+  getEnvironments: {fileID: 0}
   environment2D:
     id: 
     name: 
@@ -1238,6 +1240,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f11ac09a4a78a4695caab8666dc3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getEnvironments: {fileID: 1191053833}
+--- !u!114 &1191053833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191053829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec135e10d0205214d862798343803b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentParent: {fileID: 0}
+  listItemPrefab: {fileID: 0}
+  enviroment2DApiClient: {fileID: 0}
+  environment2D:
+    id: 
+    name: 
+    maxLength: 0
+    maxHeight: 0
+  deleteEnvironment: {fileID: 0}
+  getObjecs: {fileID: 0}
 --- !u!1 &1286158086
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GetObjects : MonoBehaviour
 {
     public Object2D object2D;
     public Object2DApiClient object2DApiClient;
 
-    public async void ReadObject2Ds()
+    public async void ReadObject2Ds(string id)
     {
-        IWebRequestReponse webRequestResponse = await object2DApiClient.ReadObject2Ds(object2D.environmentId);
+        IWebRequestReponse webRequestResponse = await object2DApiClient.ReadObject2Ds(id);
 
         switch (webRequestResponse)
         {
