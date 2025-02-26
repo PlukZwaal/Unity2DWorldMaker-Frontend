@@ -17,6 +17,7 @@ public class Create : MonoBehaviour
     public Text feedbackText;
 
     [ContextMenu("Environment2D/Create")]
+    [Obsolete]
     public async void CreateEnvironment2D()
     {
         feedbackText.text = "";

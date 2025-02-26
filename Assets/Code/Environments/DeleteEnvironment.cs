@@ -9,6 +9,7 @@ public class DeleteEnvironment : MonoBehaviour
     public GetEnvironments getEnvironments;
     public Environment2D environment2D;
 
+    [Obsolete]
     public async void DeleteEnvironment2D(string id)
     {
         Debug.Log("VEWIJDEEN VAN WERELD WERKT MAAR IS OG NIET AF WANT WE MOETEN OOK DE OBJECTEN VERWIJDEREN");
