@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class GetObjects : MonoBehaviour
 {
-    public Object2D object2D;
     public Object2DApiClient object2DApiClient;
+    public GameObject prefab; // Prefab die wordt gebruikt om objecten te maken
 
     public async void ReadObject2Ds(string id)
     {
@@ -15,15 +15,33 @@ public class GetObjects : MonoBehaviour
         {
             case WebRequestData<List<Object2D>> dataResponse:
                 List<Object2D> object2Ds = dataResponse.Data;
-                Debug.Log("List of object2Ds: " + object2Ds);
-                object2Ds.ForEach(object2D => Debug.Log(object2D.id));
+                Debug.Log("Aantal objecten opgehaald: " + object2Ds.Count);
+
+                foreach (Object2D obj in object2Ds)
+                {
+                    SpawnObject(obj);
+                }
                 break;
+
             case WebRequestError errorResponse:
                 string errorMessage = errorResponse.ErrorMessage;
-                Debug.Log("Read object2Ds error: " + errorMessage);
+                Debug.LogError("Fout bij ophalen objecten: " + errorMessage);
                 break;
+
             default:
-                throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
+                throw new NotImplementedException("Geen implementatie voor webRequestResponse van type: " + webRequestResponse.GetType());
         }
+    }
+
+    private void SpawnObject(Object2D objData)
+    {
+        Vector3 position = new Vector3(objData.positionX, objData.positionY, 0);
+        Quaternion rotation = Quaternion.Euler(0, 0, objData.rotationZ);
+        GameObject newObject = Instantiate(prefab, position, rotation);
+
+        // Schaal instellen
+        newObject.transform.localScale = new Vector3(objData.scaleX, objData.scaleY, 1);
+
+        Debug.Log($"Object {objData.id} geplaatst op {position} met rotatie {objData.rotationZ}");
     }
 }
