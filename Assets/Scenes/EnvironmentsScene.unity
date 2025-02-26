@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 98157738}
   - component: {fileID: 98157737}
   - component: {fileID: 98157739}
+  - component: {fileID: 98157740}
   m_Layer: 0
   m_Name: GetEnvironments
   m_TagString: Untagged
@@ -193,6 +194,7 @@ MonoBehaviour:
     name: 
     maxLength: 0
     maxHeight: 0
+  deleteEnvironment: {fileID: 98157740}
 --- !u!4 &98157738
 Transform:
   m_ObjectHideFlags: 0
@@ -221,6 +223,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   environmentUIHandler: {fileID: 98157737}
+--- !u!114 &98157740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98157736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fee07516b97f44458be3edf4c6dc24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enviroment2DApiClient: {fileID: 579578317}
+  environment2D:
+    id: 
+    name: 
+    maxLength: 0
+    maxHeight: 0
 --- !u!1 &179849673
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,8 +43,27 @@ public class Environment2DApiClient : MonoBehaviour
     public async Awaitable<IWebRequestReponse> DeleteEnvironment(string environmentId)
     {
         string route = "/environments/" + environmentId;
-        return await webClient.SendDeleteRequest(route);
+        string token = PlayerPrefs.GetString("Token", "");
+
+        Dictionary<string, string> headers = new Dictionary<string, string>
+    {
+        { "Authorization", "Bearer " + token },
+        { "Content-Type", "application/json" }
+    };
+
+        return await webClient.SendDeleteRequest(route, headers: headers);
     }
+
+
+
+
+
+
+
+
+
+
+
 
     private IWebRequestReponse ParseEnvironment2DResponse(IWebRequestReponse webRequestResponse)
     {

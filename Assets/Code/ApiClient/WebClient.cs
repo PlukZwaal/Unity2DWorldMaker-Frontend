@@ -53,15 +53,22 @@ public class WebClient : MonoBehaviour
         return await SendWebRequest(webRequest);
     }
 
-    public async Awaitable<IWebRequestReponse> SendPutRequest(string route, string data)
+
+    public async Awaitable<IWebRequestReponse> SendDeleteRequest(string route, Dictionary<string, string> headers)
     {
-        UnityWebRequest webRequest = CreateWebRequest("PUT", route, data);
+        UnityWebRequest webRequest = CreateWebRequest("DELETE", route, "");
+        foreach (var header in headers)
+        {
+            webRequest.SetRequestHeader(header.Key, header.Value);
+        }
+
         return await SendWebRequest(webRequest);
     }
 
-    public async Awaitable<IWebRequestReponse> SendDeleteRequest(string route)
+
+    public async Awaitable<IWebRequestReponse> SendPutRequest(string route, string data)
     {
-        UnityWebRequest webRequest = CreateWebRequest("DELETE", route, "");
+        UnityWebRequest webRequest = CreateWebRequest("PUT", route, data);
         return await SendWebRequest(webRequest);
     }
 
@@ -70,7 +77,7 @@ public class WebClient : MonoBehaviour
         string url = baseUrl + route;
         Debug.Log("Creating " + type + " request to " + url + " with data: " + data);
 
-        data = RemoveIdFromJson(data); // Backend throws error if it receiving empty strings as a GUID value.
+        data = RemoveIdFromJson(data); 
         var webRequest = new UnityWebRequest(url, type);
         byte[] dataInBytes = new UTF8Encoding().GetBytes(data);
         webRequest.uploadHandler = new UploadHandlerRaw(dataInBytes);

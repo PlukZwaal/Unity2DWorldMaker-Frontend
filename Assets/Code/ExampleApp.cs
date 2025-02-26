@@ -113,31 +113,6 @@ public class ExampleApp : MonoBehaviour
 
     #endregion
 
-    #region Environment
-
-
-    [ContextMenu("Environment2D/Delete")]
-    public async void DeleteEnvironment2D()
-    {
-        IWebRequestReponse webRequestResponse = await enviroment2DApiClient.DeleteEnvironment(environment2D.id);
-
-        switch (webRequestResponse)
-        {
-            case WebRequestData<string> dataResponse:
-                string responseData = dataResponse.Data;
-                // TODO: Handle succes scenario.
-                break;
-            case WebRequestError errorResponse:
-                string errorMessage = errorResponse.ErrorMessage;
-                Debug.Log("Delete environment error: " + errorMessage);
-                // TODO: Handle error scenario. Show the errormessage to the user.
-                break;
-            default:
-                throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
-        }
-    }
-
-    #endregion Environment
 
     #region Object2D
 
