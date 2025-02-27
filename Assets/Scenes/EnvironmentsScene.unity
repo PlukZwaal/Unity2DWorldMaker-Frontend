@@ -257,6 +257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a6290b428881e48b10185e4666d5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  object2DApiClient: {fileID: 0}
+  prefab: {fileID: 0}
+  carPrefab: {fileID: 0}
+  poppetjePrefab: {fileID: 0}
+  flagPrefab: {fileID: 0}
 --- !u!1 &179849673
 GameObject:
   m_ObjectHideFlags: 0
