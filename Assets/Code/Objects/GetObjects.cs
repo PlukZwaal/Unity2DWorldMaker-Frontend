@@ -6,6 +6,9 @@ public class GetObjects : MonoBehaviour
 {
     public Object2DApiClient object2DApiClient;
     public GameObject prefab; // Prefab die wordt gebruikt om objecten te maken
+    public GameObject carPrefab;
+    public GameObject poppetjePrefab;
+    public GameObject flagPrefab;
 
     public async void ReadObject2Ds(string id)
     {
@@ -35,9 +38,26 @@ public class GetObjects : MonoBehaviour
 
     private void SpawnObject(Object2D objData)
     {
-        Vector3 position = new Vector3(objData.positionX, objData.positionY, 0);
-        Quaternion rotation = Quaternion.Euler(0, 0, objData.rotationZ);
-        GameObject newObject = Instantiate(prefab, position, rotation);
-        newObject.transform.localScale = new Vector3(objData.scaleX, objData.scaleY, 1);
+        // Kies het juiste prefab gebaseerd op het ID
+        GameObject prefabToSpawn = objData.prefabId switch
+        {
+            "car" => carPrefab,
+            "poppetje" => poppetjePrefab,
+            "flag" => flagPrefab,
+            _ => null
+        };
+
+        if (prefabToSpawn != null)
+        {
+            Vector3 position = new Vector3(objData.positionX, objData.positionY, 0);
+            Quaternion rotation = Quaternion.Euler(0, 0, objData.rotationZ);
+
+            GameObject newObject = Instantiate(prefabToSpawn, position, rotation);
+            newObject.transform.localScale = new Vector3(objData.scaleX, objData.scaleY, 1);
+        }
+        else
+        {
+            Debug.LogError($"Kon geen prefab vinden voor ID: {objData.prefabId}");
+        }
     }
 }

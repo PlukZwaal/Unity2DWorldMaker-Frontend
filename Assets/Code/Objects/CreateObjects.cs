@@ -4,23 +4,43 @@ using UnityEngine.UI;
 public class CreateObjects : MonoBehaviour
 {
     public Object2DApiClient object2DApiClient;
-    public GameObject prefab;
+    public GameObject prefabCar;
+    public GameObject prefabPoppetje;
+    public GameObject prefabFlag;
     private GameObject currentInstance;
+    private string prefabId;
 
     private void Start()
     {
         // Standaard Unity Button configuratie
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            CreateInstanceOfPrefab();
+            CreateInstanceOfPrefabCar();
         });
     }
 
-    public void CreateInstanceOfPrefab()
+    public void CreateInstanceOfPrefabCar()
     {
         Vector3 mousePos = GetMousePosition();
-        currentInstance = Instantiate(prefab, mousePos, Quaternion.identity);
+        currentInstance = Instantiate(prefabCar, mousePos, Quaternion.identity);
         currentInstance.GetComponent<Draggable>().StartDragging();
+        prefabId = "car"; 
+    }
+
+    public void CreateInstanceOfPrefabPoppetje()
+    {
+        Vector3 mousePos = GetMousePosition();
+        currentInstance = Instantiate(prefabPoppetje, mousePos, Quaternion.identity);
+        currentInstance.GetComponent<Draggable>().StartDragging();
+        prefabId = "poppetje";
+    }
+
+    public void CreateInstanceOfPrefabFlag()
+    {
+        Vector3 mousePos = GetMousePosition();
+        currentInstance = Instantiate(prefabFlag, mousePos, Quaternion.identity);
+        currentInstance.GetComponent<Draggable>().StartDragging();
+        prefabId = "flag";
     }
 
     public void SaveObjectData()
@@ -31,7 +51,7 @@ public class CreateObjects : MonoBehaviour
             {
                 id = System.Guid.NewGuid().ToString(),
                 environmentId = PlayerPrefs.GetString("CurrentEnvironmentId"),
-                prefabId = "prefab_654321",
+                prefabId = prefabId, 
                 positionX = currentInstance.transform.position.x,
                 positionY = currentInstance.transform.position.y,
                 scaleX = currentInstance.transform.localScale.x,
