@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreateObjects : MonoBehaviour
 {
@@ -7,24 +7,31 @@ public class CreateObjects : MonoBehaviour
     public GameObject prefab;
     private GameObject currentInstance;
 
+    private void Start()
+    {
+        // Standaard Unity Button configuratie
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            CreateInstanceOfPrefab();
+        });
+    }
+
     public void CreateInstanceOfPrefab()
     {
-        // Instantieer het prefab zonder gegevensinstellingen
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
+        Vector3 mousePos = GetMousePosition();
         currentInstance = Instantiate(prefab, mousePos, Quaternion.identity);
+        currentInstance.GetComponent<Draggable>().StartDragging();
     }
 
     public void SaveObjectData()
     {
         if (currentInstance != null)
         {
-            // Stel de gegevens in voor het Object2D bij het opslaan
             Object2D object2D = new Object2D
             {
-                id = Guid.NewGuid().ToString(),
-                environmentId = "env_123456", // Vervang dit door de daadwerkelijke environment ID
-                prefabId = "prefab_654321",   // Vervang dit door de daadwerkelijke prefab ID
+                id = System.Guid.NewGuid().ToString(),
+                environmentId = PlayerPrefs.GetString("CurrentEnvironmentId"),
+                prefabId = "prefab_654321",
                 positionX = currentInstance.transform.position.x,
                 positionY = currentInstance.transform.position.y,
                 scaleX = currentInstance.transform.localScale.x,
@@ -33,32 +40,30 @@ public class CreateObjects : MonoBehaviour
                 sortingLayer = currentInstance.GetComponent<Renderer>().sortingLayerID
             };
 
-            // Roep de methode aan om het object daadwerkelijk aan te maken met de API
             CreateObject2D(object2D);
         }
-        else
-        {
-            Debug.LogWarning("Geen instantie beschikbaar om op te slaan.");
-        }
+    }
+
+    private Vector3 GetMousePosition()
+    {
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        return pos;
     }
 
     public async void CreateObject2D(Object2D object2D)
     {
-        Debug.Log("Verzenden van Object2D naar API...");
-        IWebRequestReponse webRequestResponse = await object2DApiClient.CreateObject2D(object2D);
+        Debug.Log("Verzenden naar API...");
+        IWebRequestReponse response = await object2DApiClient.CreateObject2D(object2D);
 
-        // Verwerk de respons van de API
-        switch (webRequestResponse)
+        switch (response)
         {
-            case WebRequestData<Object2D> dataResponse:
-                object2D.id = dataResponse.Data.id;
-                Debug.Log("Object2D succesvol aangemaakt! ID: " + object2D.id);
+            case WebRequestData<Object2D> data:
+                Debug.Log($"Aangemaakt met ID: {data.Data.id}");
                 break;
-            case WebRequestError errorResponse:
-                Debug.LogError("Fout bij het aanmaken van Object2D: " + errorResponse.ErrorMessage);
+            case WebRequestError error:
+                Debug.LogError($"Fout: {error.ErrorMessage}");
                 break;
-            default:
-                throw new NotImplementedException("Onverwacht webRequestResponse-type: " + webRequestResponse.GetType());
         }
     }
 }

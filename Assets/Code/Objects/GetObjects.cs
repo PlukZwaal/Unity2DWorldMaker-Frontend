@@ -38,10 +38,6 @@ public class GetObjects : MonoBehaviour
         Vector3 position = new Vector3(objData.positionX, objData.positionY, 0);
         Quaternion rotation = Quaternion.Euler(0, 0, objData.rotationZ);
         GameObject newObject = Instantiate(prefab, position, rotation);
-
-        // Schaal instellen
         newObject.transform.localScale = new Vector3(objData.scaleX, objData.scaleY, 1);
-
-        Debug.Log($"Object {objData.id} geplaatst op {position} met rotatie {objData.rotationZ}");
     }
 }
