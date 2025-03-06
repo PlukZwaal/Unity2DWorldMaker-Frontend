@@ -1,33 +1,41 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class DeleteEnvironment : MonoBehaviour
+public class Login : MonoBehaviour
 {
-    public Environment2DApiClient enviroment2DApiClient;
+    public User user;
+    public UserApiClient userApiClient;
     public GetEnvironments getEnvironments;
-    public Environment2D environment2D;
+    public InputField emailInput;
+    public InputField passwordInput;
+    public Text feedbackText;
 
-    [Obsolete]
-    public async void DeleteEnvironment2D(string id)
+    public async void PerformLogin()
     {
-        IWebRequestReponse webRequestResponse = await enviroment2DApiClient.DeleteEnvironment(id);
+        user.email = emailInput.text;
+        user.password = passwordInput.text;
+
+        IWebRequestReponse webRequestResponse = await userApiClient.Login(user);
 
         switch (webRequestResponse)
         {
             case WebRequestData<string> dataResponse:
-                string responseData = dataResponse.Data;
+                PlayerPrefs.SetString("Token", dataResponse.Data);
+                PlayerPrefs.Save();
+
                 await SceneManager.LoadSceneAsync("EnvironmentsScene");
                 await Task.Yield();
                 getEnvironments = FindObjectOfType<GetEnvironments>();
                 getEnvironments.ReadEnvironment2Ds();
                 break;
+
             case WebRequestError errorResponse:
-                string errorMessage = errorResponse.ErrorMessage;
-                //Debug.Log("Delete environment error: " + errorMessage);
+                feedbackText.text = "Geen account gevonden met deze gegevens!";
                 break;
+
             default:
                 throw new NotImplementedException("No implementation for webRequestResponse of class: " + webRequestResponse.GetType());
         }

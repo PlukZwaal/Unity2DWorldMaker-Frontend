@@ -83,7 +83,7 @@ public class Environment2DApiClient : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<string> data:
-                Debug.Log("Response data raw: " + data.Data);
+                //Debug.Log("Response data raw: " + data.Data);
                 List<Environment2D> environment2Ds = JsonHelper.ParseJsonArray<Environment2D>(data.Data);
                 WebRequestData<List<Environment2D>> parsedWebRequestData = new WebRequestData<List<Environment2D>>(environment2Ds);
                 return parsedWebRequestData;

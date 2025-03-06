@@ -29,7 +29,7 @@ public class UserApiClient : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<string> data:
-                Debug.Log("Response data raw: " + data.Data);
+                //Debug.Log("Response data raw: " + data.Data);
 
                 var json = JsonUtility.FromJson<TokenResponse>(data.Data);
                 if (!string.IsNullOrEmpty(json.accessToken))

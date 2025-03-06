@@ -75,7 +75,7 @@ public class WebClient : MonoBehaviour
     private UnityWebRequest CreateWebRequest(string type, string route, string data)
     {
         string url = baseUrl + route;
-        Debug.Log("Creating " + type + " request to " + url + " with data: " + data);
+        //Debug.Log("Creating " + type + " request to " + url + " with data: " + data);
 
         data = RemoveIdFromJson(data); 
         var webRequest = new UnityWebRequest(url, type);

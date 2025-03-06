@@ -51,7 +51,7 @@ public class Object2DApiClient : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<string> data:
-                Debug.Log("Response data raw: " + data.Data);
+                //Debug.Log("Response data raw: " + data.Data);
                 Object2D object2D = JsonUtility.FromJson<Object2D>(data.Data);
                 WebRequestData<Object2D> parsedWebRequestData = new WebRequestData<Object2D>(object2D);
                 return parsedWebRequestData;
@@ -65,7 +65,7 @@ public class Object2DApiClient : MonoBehaviour
         switch (webRequestResponse)
         {
             case WebRequestData<string> data:
-                Debug.Log("Response data raw: " + data.Data);
+                //Debug.Log("Response data raw: " + data.Data);
                 List<Object2D> environments = JsonHelper.ParseJsonArray<Object2D>(data.Data);
                 WebRequestData<List<Object2D>> parsedData = new WebRequestData<List<Object2D>>(environments);
                 return parsedData;

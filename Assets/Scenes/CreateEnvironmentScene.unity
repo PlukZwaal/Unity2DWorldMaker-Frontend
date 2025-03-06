@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c86bd7546f1f94e9c106ea19a09157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUrl: https://localhost:7050
+  baseUrl: https://avansict2228229.azurewebsites.net
 --- !u!114 &579578319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,6 +1241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getEnvironments: {fileID: 1191053833}
+  getObjects: {fileID: 0}
 --- !u!114 &1191053833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,13 +1257,13 @@ MonoBehaviour:
   contentParent: {fileID: 0}
   listItemPrefab: {fileID: 0}
   enviroment2DApiClient: {fileID: 0}
+  getObjects: {fileID: 0}
   environment2D:
     id: 
     name: 
     maxLength: 0
     maxHeight: 0
   deleteEnvironment: {fileID: 0}
-  getObjecs: {fileID: 0}
 --- !u!1 &1286158086
 GameObject:
   m_ObjectHideFlags: 0

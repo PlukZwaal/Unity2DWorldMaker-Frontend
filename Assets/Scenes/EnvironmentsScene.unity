@@ -259,9 +259,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   object2DApiClient: {fileID: 0}
   prefab: {fileID: 0}
-  carPrefab: {fileID: 0}
-  poppetjePrefab: {fileID: 0}
-  flagPrefab: {fileID: 0}
+  Prefab1: {fileID: 0}
+  Prefab2: {fileID: 0}
+  Prefab3: {fileID: 0}
 --- !u!1 &179849673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c86bd7546f1f94e9c106ea19a09157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUrl: https://localhost:7050
+  baseUrl: https://avansict2228229.azurewebsites.net
 --- !u!114 &579578319
 MonoBehaviour:
   m_ObjectHideFlags: 0

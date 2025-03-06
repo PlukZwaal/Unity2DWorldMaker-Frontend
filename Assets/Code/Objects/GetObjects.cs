@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class GetObjects : MonoBehaviour
 {
     public Object2DApiClient object2DApiClient;
-    public GameObject prefab; // Prefab die wordt gebruikt om objecten te maken
-    public GameObject carPrefab;
-    public GameObject poppetjePrefab;
-    public GameObject flagPrefab;
+    public GameObject prefab; 
+    public GameObject Prefab1;
+    public GameObject Prefab2;
+    public GameObject Prefab3;
 
     public async void ReadObject2Ds(string id)
     {
@@ -18,7 +18,7 @@ public class GetObjects : MonoBehaviour
         {
             case WebRequestData<List<Object2D>> dataResponse:
                 List<Object2D> object2Ds = dataResponse.Data;
-                Debug.Log("Aantal objecten opgehaald: " + object2Ds.Count);
+                //Debug.Log("Aantal objecten opgehaald: " + object2Ds.Count);
 
                 foreach (Object2D obj in object2Ds)
                 {
@@ -28,7 +28,7 @@ public class GetObjects : MonoBehaviour
 
             case WebRequestError errorResponse:
                 string errorMessage = errorResponse.ErrorMessage;
-                Debug.LogError("Fout bij ophalen objecten: " + errorMessage);
+                //Debug.LogError("Fout bij ophalen objecten: " + errorMessage);
                 break;
 
             default:
@@ -41,9 +41,9 @@ public class GetObjects : MonoBehaviour
         // Kies het juiste prefab gebaseerd op het ID
         GameObject prefabToSpawn = objData.prefabId switch
         {
-            "car" => carPrefab,
-            "poppetje" => poppetjePrefab,
-            "flag" => flagPrefab,
+            "1" => Prefab1,
+            "2" => Prefab2,
+            "3" => Prefab3,
             _ => null
         };
 
@@ -57,7 +57,7 @@ public class GetObjects : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Kon geen prefab vinden voor ID: {objData.prefabId}");
+            //Debug.LogError($"Kon geen prefab vinden voor ID: {objData.prefabId}");
         }
     }
 }

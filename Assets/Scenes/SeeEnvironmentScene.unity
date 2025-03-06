@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 58318491}
   - component: {fileID: 58318490}
   m_Layer: 5
-  m_Name: PoppetjeButton
+  m_Name: 2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 0}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchoredPosition: {x: -363, y: -22}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &58318490
 MonoBehaviour:
@@ -203,7 +203,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 402999060}
         m_TargetAssemblyTypeName: CreateObjects, Assembly-CSharp
-        m_MethodName: CreateInstanceOfPrefabPoppetje
+        m_MethodName: CreateInstanceOfPrefab2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 99392959}
   - component: {fileID: 99392958}
   m_Layer: 5
-  m_Name: FlagButton
+  m_Name: 3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,8 +286,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: -107}
-  m_SizeDelta: {x: 50, y: 60}
+  m_AnchoredPosition: {x: -359, y: -129}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &99392958
 MonoBehaviour:
@@ -335,7 +335,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 402999060}
         m_TargetAssemblyTypeName: CreateObjects, Assembly-CSharp
-        m_MethodName: CreateInstanceOfPrefabFlag
+        m_MethodName: CreateInstanceOfPrefab3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -430,9 +430,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   object2DApiClient: {fileID: 579578319}
   prefab: {fileID: 2787046050870659450, guid: f39b06de393a8bd499558398de704f52, type: 3}
-  carPrefab: {fileID: 2787046050870659450, guid: f39b06de393a8bd499558398de704f52, type: 3}
-  poppetjePrefab: {fileID: 8037009961585472385, guid: 5b7490c5d5ccfd9479c773f2439cffe0, type: 3}
-  flagPrefab: {fileID: 315461585003141815, guid: fa6c40a224af55c419e26e3ab610aa02, type: 3}
+  Prefab1: {fileID: 2787046050870659450, guid: f39b06de393a8bd499558398de704f52, type: 3}
+  Prefab2: {fileID: 8037009961585472385, guid: 5b7490c5d5ccfd9479c773f2439cffe0, type: 3}
+  Prefab3: {fileID: 315461585003141815, guid: fa6c40a224af55c419e26e3ab610aa02, type: 3}
 --- !u!114 &402999060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,9 +446,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   object2DApiClient: {fileID: 579578319}
-  prefabCar: {fileID: 2787046050870659450, guid: f39b06de393a8bd499558398de704f52, type: 3}
-  prefabPoppetje: {fileID: 8037009961585472385, guid: 5b7490c5d5ccfd9479c773f2439cffe0, type: 3}
-  prefabFlag: {fileID: 315461585003141815, guid: fa6c40a224af55c419e26e3ab610aa02, type: 3}
+  prefab1: {fileID: 2787046050870659450, guid: f39b06de393a8bd499558398de704f52, type: 3}
+  prefab2: {fileID: 8037009961585472385, guid: 5b7490c5d5ccfd9479c773f2439cffe0, type: 3}
+  prefab3: {fileID: 315461585003141815, guid: fa6c40a224af55c419e26e3ab610aa02, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c86bd7546f1f94e9c106ea19a09157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUrl: https://localhost:7050
+  baseUrl: https://avansict2228229.azurewebsites.net
 --- !u!114 &579578319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,8 +844,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 0}
+  m_AnchoredPosition: {x: 85, y: 0}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739415375
 MonoBehaviour:
@@ -882,7 +882,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739415373}
   m_CullTransparentMesh: 1
---- !u!1 &1272462212
+--- !u!1 &862464164
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -890,22 +890,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1272462214}
-  - component: {fileID: 1272462213}
-  m_Layer: 0
-  m_Name: Achtergrond
+  - component: {fileID: 862464166}
+  - component: {fileID: 862464165}
+  m_Layer: 5
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!212 &1272462213
+--- !u!212 &862464165
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1272462212}
+  m_GameObject: {fileID: 862464164}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -943,8 +943,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 4966732595609684114, guid: aaca0785983c35944a6c093ca3ad3fac, type: 3}
-  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  m_Sprite: {fileID: -5789324570977786174, guid: aa243daee47c4ac41b20b76f8850c140, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -954,21 +954,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1272462214
-Transform:
+--- !u!224 &862464166
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1272462212}
-  serializedVersion: 2
+  m_GameObject: {fileID: 862464164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -440.375, y: -224.625, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1286158090}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1286158086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,7 +1067,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1272462214}
   - {fileID: 739415374}
   - {fileID: 1642729328}
   - {fileID: 1818692286}
@@ -1301,7 +1304,7 @@ GameObject:
   - component: {fileID: 1818692288}
   - component: {fileID: 1818692287}
   m_Layer: 5
-  m_Name: CarButton
+  m_Name: 1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1323,8 +1326,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 107}
-  m_SizeDelta: {x: 100, y: 50}
+  m_AnchoredPosition: {x: -369, y: 85}
+  m_SizeDelta: {x: 120, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1818692287
 MonoBehaviour:
@@ -1372,7 +1375,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 402999060}
         m_TargetAssemblyTypeName: CreateObjects, Assembly-CSharp
-        m_MethodName: CreateInstanceOfPrefabCar
+        m_MethodName: CreateInstanceOfPrefab1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1426,6 +1429,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 579578316}
+  - {fileID: 862464166}
   - {fileID: 1286158090}
   - {fileID: 1481954840}
   - {fileID: 563789825}

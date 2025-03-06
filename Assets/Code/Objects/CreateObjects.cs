@@ -4,43 +4,43 @@ using UnityEngine.UI;
 public class CreateObjects : MonoBehaviour
 {
     public Object2DApiClient object2DApiClient;
-    public GameObject prefabCar;
-    public GameObject prefabPoppetje;
-    public GameObject prefabFlag;
+    public GameObject prefab1;
+    public GameObject prefab2;
+    public GameObject prefab3;
     private GameObject currentInstance;
     private string prefabId;
 
-    private void Start()
-    {
-        // Standaard Unity Button configuratie
-        GetComponent<Button>().onClick.AddListener(() =>
-        {
-            CreateInstanceOfPrefabCar();
-        });
-    }
+    //private void Start()
+    //{
+    //    // Standaard Unity Button configuratie
+    //    GetComponent<Button>().onClick.AddListener(() =>
+    //    {
+    //        CreateInstanceOfPrefab1();
+    //    });
+    //}
 
-    public void CreateInstanceOfPrefabCar()
+    public void CreateInstanceOfPrefab1()
     {
         Vector3 mousePos = GetMousePosition();
-        currentInstance = Instantiate(prefabCar, mousePos, Quaternion.identity);
+        currentInstance = Instantiate(prefab1, mousePos, Quaternion.identity);
         currentInstance.GetComponent<Draggable>().StartDragging();
-        prefabId = "car"; 
+        prefabId = "1"; 
     }
 
-    public void CreateInstanceOfPrefabPoppetje()
+    public void CreateInstanceOfPrefab2()
     {
         Vector3 mousePos = GetMousePosition();
-        currentInstance = Instantiate(prefabPoppetje, mousePos, Quaternion.identity);
+        currentInstance = Instantiate(prefab2, mousePos, Quaternion.identity);
         currentInstance.GetComponent<Draggable>().StartDragging();
-        prefabId = "poppetje";
+        prefabId = "2";
     }
 
-    public void CreateInstanceOfPrefabFlag()
+    public void CreateInstanceOfPrefab3()
     {
         Vector3 mousePos = GetMousePosition();
-        currentInstance = Instantiate(prefabFlag, mousePos, Quaternion.identity);
+        currentInstance = Instantiate(prefab3, mousePos, Quaternion.identity);
         currentInstance.GetComponent<Draggable>().StartDragging();
-        prefabId = "flag";
+        prefabId = "3";
     }
 
     public void SaveObjectData()
@@ -73,16 +73,15 @@ public class CreateObjects : MonoBehaviour
 
     public async void CreateObject2D(Object2D object2D)
     {
-        Debug.Log("Verzenden naar API...");
         IWebRequestReponse response = await object2DApiClient.CreateObject2D(object2D);
 
         switch (response)
         {
             case WebRequestData<Object2D> data:
-                Debug.Log($"Aangemaakt met ID: {data.Data.id}");
+                //Debug.Log($"Aangemaakt met ID: {data.Data.id}");
                 break;
             case WebRequestError error:
-                Debug.LogError($"Fout: {error.ErrorMessage}");
+                //Debug.LogError($"Fout: {error.ErrorMessage}");
                 break;
         }
     }

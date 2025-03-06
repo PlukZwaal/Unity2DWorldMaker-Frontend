@@ -33,7 +33,7 @@ public class GetEnvironments : MonoBehaviour
                 PlayerPrefsX.SetStringArray("EnvironmentNames", names);
                 break;
             case WebRequestError errorResponse:
-                Debug.LogError($"Error: {errorResponse.ErrorMessage}");
+                //Debug.LogError($"Error: {errorResponse.ErrorMessage}");
                 break;
             default:
                 throw new NotImplementedException();

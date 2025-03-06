@@ -34,7 +34,7 @@ public class Draggable : MonoBehaviour
 
     private void SavePosition()
     {
-        Debug.Log($"Positie opgeslagen: {transform.position}");
+        //Debug.Log($"Positie opgeslagen: {transform.position}");
         createObjects ??= FindObjectOfType<CreateObjects>();
         createObjects.SaveObjectData();
     }

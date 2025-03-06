@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: -170, y: -10}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &118697382
@@ -202,9 +202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1779527467}
-        m_TargetAssemblyTypeName: ExampleApp, Assembly-CSharp
-        m_MethodName: Login
+      - m_Target: {fileID: 1981031919}
+        m_TargetAssemblyTypeName: Login, Assembly-CSharp
+        m_MethodName: PerformLogin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c86bd7546f1f94e9c106ea19a09157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUrl: https://localhost:7050
+  baseUrl: https://avansict2228229.azurewebsites.net
 --- !u!114 &579578319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,6 +1518,7 @@ GameObject:
   - component: {fileID: 1779527468}
   - component: {fileID: 1779527467}
   - component: {fileID: 1779527469}
+  - component: {fileID: 1779527471}
   m_Layer: 0
   m_Name: ExampleApp
   m_TagString: Untagged
@@ -1558,7 +1559,7 @@ MonoBehaviour:
   userApiClient: {fileID: 579578320}
   enviroment2DApiClient: {fileID: 579578317}
   object2DApiClient: {fileID: 579578319}
-  environmentHandler: {fileID: 0}
+  environmentUIHandler: {fileID: 0}
   emailInput: {fileID: 1865282710}
   passwordInput: {fileID: 1497173170}
   feedbackText: {fileID: 1149968644}
@@ -1589,6 +1590,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f11ac09a4a78a4695caab8666dc3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getEnvironments: {fileID: 0}
+  getObjects: {fileID: 0}
+--- !u!114 &1779527471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779527466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88be5112c8f93e43983b1703961958c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user:
+    email: 
+    password: 
+  userApiClient: {fileID: 579578320}
+  getEnvironments: {fileID: 1981031918}
+  emailInput: {fileID: 1865282710}
+  passwordInput: {fileID: 1497173170}
+  feedbackText: {fileID: 1149968644}
 --- !u!1 &1865282708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1891,96 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1915550502}
   m_CullTransparentMesh: 1
+--- !u!1 &1981031917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981031920}
+  - component: {fileID: 1981031919}
+  - component: {fileID: 1981031918}
+  - component: {fileID: 1981031921}
+  m_Layer: 0
+  m_Name: Login
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1981031918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981031917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec135e10d0205214d862798343803b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentParent: {fileID: 0}
+  listItemPrefab: {fileID: 0}
+  enviroment2DApiClient: {fileID: 0}
+  getObjects: {fileID: 0}
+  environment2D:
+    id: 
+    name: 
+    maxLength: 0
+    maxHeight: 0
+  deleteEnvironment: {fileID: 0}
+--- !u!114 &1981031919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981031917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88be5112c8f93e43983b1703961958c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user:
+    email: 
+    password: 
+  userApiClient: {fileID: 579578320}
+  getEnvironments: {fileID: 0}
+  emailInput: {fileID: 1865282710}
+  passwordInput: {fileID: 1497173170}
+  feedbackText: {fileID: 1149968644}
+--- !u!4 &1981031920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981031917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1981031921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981031917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f11ac09a4a78a4695caab8666dc3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getEnvironments: {fileID: 0}
+  getObjects: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1877,3 +1990,4 @@ SceneRoots:
   - {fileID: 579578316}
   - {fileID: 983822660}
   - {fileID: 714743202}
+  - {fileID: 1981031920}
